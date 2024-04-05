@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './action/actions';
+import Home from './component/Home';
 function App(props) {
 
   const dispatch = useDispatch()
@@ -17,16 +18,21 @@ function App(props) {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>Count: {counter}</div>
+    
+    <Home />
 
-      <button onClick={handleIncrease}>Increase Count</button>
 
-      <button onClick={handleDecrease}>Decrease Count</button>
-      </header>
-    </div>
+
+    // <div className="App">
+    //   <header className="App-header">
+    //     <img src={logo} className="App-logo" alt="logo" />
+    //     <div>Count: {counter}</div>
+
+    //   <button onClick={handleIncrease}>Increase Count</button>
+
+    //   <button onClick={handleDecrease}>Decrease Count</button>
+    //   </header>
+    // </div>
   );
 }
 
