@@ -1,41 +1,49 @@
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllUsers } from "../action/actions";
 
 const TableUser = () => {
+
+  const dispatch = useDispatch();
+  const listUsers = useSelector(state => state.user.listUsers.content)
+
+  useEffect(() => {
+    dispatch(fetchAllUsers())
+  }, []);
+
+
   return (
     <Container>
       <hr />
       <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-        </tr>
-        
-      </tbody>
-    </Table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listUsers &&
+            listUsers.length > 0 &&
+            listUsers.map((item, index) => {
+              return (
+                <tr key={`user-${index}`}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.username}</td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
     </Container>
   );
 };
